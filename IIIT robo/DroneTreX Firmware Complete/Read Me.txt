@@ -1,0 +1,88 @@
+© 2018 ProTreX Technology re-Xplained All Rights Reserved
+
+**Before Following the steps make sure your quadcopter is fully assembled with flight controller firmly fixed at the center of frame without motors attached without battery connected for safety reasons.
+*any damage caused due to improper handling is not in our scope.
+*RemoteXY Library needs to be copied to the arduino libraries location
+
+///////////////////////////////
+Baud Rate changing for ESP8266
+///////////////////////////////
+
+1) For Sucessfull Communication we need to set the baud rate of communication at 19200 for ESP as well as Main Firmware
+2) Open Step1_ESP_Programming & Upload via programmer to Flight Controller
+3) Set Serial Monitor to both NL & CR & baud rate to 9600
+4) Enter AT and press Enter if your get 'OK' then continue else check the above setting
+5) Enter 'AT+CIOBAUD=19200' if your get 'OK' You have sucessfully set the communication baud rate
+6) If Completed Sucessfully continue to Upload Step2 Code
+
+///////////////////////////////
+Initial Setup for Quadcopter
+///////////////////////////////
+
+1) Open Step2_DroneTreX_Initial_Setup & Upload via programmer to Flight Controller
+2) Set the Baud Rate of Serial monitor to 57600
+3) Connect the mobile with 'DroneTreX' network with password '12345678'
+4) Once connected press any key and send to continue with setup process on serial monitor
+5) Follow the On Screen Steps to Configure your Quadcopter
+6) Retry if error message is display with proper attention to mistakes
+7) Once you get the sucessfull message you can continue with motor testing code
+
+///////////////////////////////
+Motor Testing for Quadcopter
+///////////////////////////////
+
+*Now connect you motors & battery to the quadcopter and disconnected the positive supply from the programmer module only RX,TX & GND would be connected with 
+flight controller
+*Donot attach the propeller
+
+1) Open Step3_DroneTreX_Motor_Test & Upload via programmer to Flight Controller
+2) Set the Baud Rate of Serial monitor to 57600
+3) Connect the mobile with 'DroneTreX' network with password '12345678'
+4) Once connected press any key and send to continue with setup process on serial monitor
+5) Follow the On Screen Steps to Configure your Quadcopter
+6) Here you check the rotation and speed of quadcopter individual motors 
+7) Once all the parameters are checked you will get a sucessfull message you can now continue with the main firmware code
+
+///////////////////////////////
+Programming Main Firmware
+///////////////////////////////
+
+1) Open Step4_DroneTreX_Firmware_Ver2 & Upload via programmer to Flight Controller
+2) Connect the mobile with 'DroneTreX' network with password '12345678'
+3) If you have sucessfully completed step1 & step2 then you can arm the quadcopter by making the throttle low and rudder left
+4) For disarming throttle low and rudder right
+5) Tune the PID Setting for Yaw Pitch & Roll for maximum stability. 
+6) The PID gains are already set to value with best result & stability (You can fine tune it to make it more stable for your own drone)
+
+
+///////////////////////////////
+Tuning PID gains for Stability
+///////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//PID gain and limit settings
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+float pid_p_gain_roll = 0.4;               //Gain setting for the roll P-controller
+float pid_i_gain_roll = 0.003;              //Gain setting for the roll I-controller
+float pid_d_gain_roll = 4.0;              //Gain setting for the roll D-controller
+int pid_max_roll = 400;                    //Maximum output of the PID-controller (+/-)
+
+float pid_p_gain_pitch = pid_p_gain_roll;  //Gain setting for the pitch P-controller.
+float pid_i_gain_pitch = pid_i_gain_roll;  //Gain setting for the pitch I-controller.
+float pid_d_gain_pitch = pid_d_gain_roll;  //Gain setting for the pitch D-controller.
+int pid_max_pitch = pid_max_roll;          //Maximum output of the PID-controller (+/-)
+
+float pid_p_gain_yaw = 3.0;                //Gain setting for the pitch P-controller. //4.0
+float pid_i_gain_yaw = 0.02;               //Gain setting for the pitch I-controller. //0.02
+float pid_d_gain_yaw = 0.0;                //Gain setting for the pitch D-controller.
+int pid_max_yaw = 400;                     //Maximum output of the PID-controller (+/-)
+
+(P gain determines how hard the flight controller works to correct error and achieve the desired flight path )
+(I term determines how hard the FC works to hold the drone’s attitude against external forces, such as wind and off-centered CG )
+(D gain works as a damper and reduces the over-correcting and overshoots caused by P term )
+for PID working you can visit https://oscarliang.com/quadcopter-pid-explained-tuning/ or search over internet
+
+
+1) The above are the code area from where you can change the PID Gain for your Drone in Step4_DroneTreX_Firmware_Ver2 code
+2) PID Values mentioned are tuned values for your quadcopter model you can easily tune the PID following procedure of PID tuning from any video from internet
+3) PID is the main factor affecting stability and proper PID tuning is necessary for controlled and stable flight
+4) Have Fun!
